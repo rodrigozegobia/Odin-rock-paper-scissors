@@ -25,6 +25,8 @@ function playRound(playerSelection, computerSelection) {
     } else {
       result = "You Lose! " + computerSelection + " beats " + playerSelection;
     }
+    console.log(`Computer player ` + computerSelection + `!`);
     return result;
 }
 
+console.log(playRound(getPlayerChoice(),getComputerChoice()));
