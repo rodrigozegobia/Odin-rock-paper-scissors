@@ -25,8 +25,33 @@ function playRound(playerSelection, computerSelection) {
     } else {
       result = "You Lose! " + computerSelection + " beats " + playerSelection;
     }
-    console.log(`Computer player ` + computerSelection + `!`);
     return result;
 }
 
-console.log(playRound(getPlayerChoice(),getComputerChoice()));
+function game() {
+    var playerScore = 0;
+    var computerScore = 0;
+    
+    for (var i = 0; i < 5; i++) { 
+      var playerChoice = getPlayerChoice();
+      var computerChoice = getComputerChoice();
+      var roundResult = playRound(playerChoice, computerChoice);
+      console.log(roundResult);
+      
+      if (roundResult.includes("Win")) {
+        playerScore++;
+      } else if (roundResult.includes("Lose")) {
+        computerScore++;
+      }
+    }
+    
+    if (playerScore > computerScore) {
+      console.log("You won the game! Your final score is " + playerScore + " to " + computerScore);
+    } else if (playerScore < computerScore) {
+      console.log("You lost the game! Your final score is " + playerScore + " to " + computerScore);
+    } else {
+      console.log("It's a tie! Your final score is " + playerScore + " to " + computerScore);
+    }
+}
+
+console.log(game());
