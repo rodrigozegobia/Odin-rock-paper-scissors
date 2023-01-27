@@ -1,15 +1,14 @@
 function getComputerChoice() {
-    var choices = ['Rock', 'Paper', 'Scissors'];
+    var choices = ['rock', 'paper', 'scissors'];
     var randomIndex = Math.floor(Math.random() * choices.length);
     return choices[randomIndex];
 }
-console.log(getComputerChoice())
 
 function getPlayerChoice() {
-    var playerChoice = prompt("Enter Rock, Paper, or Scissors");
-    while (playerChoice !== "Rock" && playerChoice !== "Paper" && playerChoice !== "Scissors") {
-      alert("Enter Rock, Paper, or Scissors");
-      playerChoice = prompt("Please enter your choice: Rock, Paper, or Scissors");
+    var playerChoice = prompt("Please enter your choice: Rock, Paper, or Scissors").toLowerCase();
+    while (playerChoice !== "rock" && playerChoice !== "paper" && playerChoice !== "scissors") {
+      alert("Invalid choice, please enter Rock, Paper, or Scissors");
+      playerChoice = prompt("Please enter your choice: Rock, Paper, or Scissors").toLowerCase();
     }
     return playerChoice;
 }
@@ -19,12 +18,13 @@ function playRound(playerSelection, computerSelection) {
     
     if (playerSelection === computerSelection) {
       result = "It's a Tie!";
-    } else if (playerSelection === "Rock" && computerSelection === "Scissors" ||
-               playerSelection === "Scissors" && computerSelection === "Paper" ||
-               playerSelection === "Paper" && computerSelection === "Rock") {
+    } else if (playerSelection === "rock" && computerSelection === "scissors" ||
+               playerSelection === "scissors" && computerSelection === "paper" ||
+               playerSelection === "paper" && computerSelection === "rock") {
       result = "You Win! " + playerSelection + " beats " + computerSelection;
     } else {
       result = "You Lose! " + computerSelection + " beats " + playerSelection;
     }
     return result;
 }
+
