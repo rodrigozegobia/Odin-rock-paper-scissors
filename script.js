@@ -5,6 +5,15 @@ function getComputerChoice() {
 }
 console.log(getComputerChoice())
 
+function getPlayerChoice() {
+    var playerChoice = prompt("Enter Rock, Paper, or Scissors");
+    while (playerChoice !== "Rock" && playerChoice !== "Paper" && playerChoice !== "Scissors") {
+      alert("Enter Rock, Paper, or Scissors");
+      playerChoice = prompt("Please enter your choice: Rock, Paper, or Scissors");
+    }
+    return playerChoice;
+}
+
 function playRound(playerSelection, computerSelection) {
     var result;
     
