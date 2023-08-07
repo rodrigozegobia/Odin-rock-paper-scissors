@@ -4,15 +4,6 @@ function getComputerChoice() {
     return choices[randomIndex];
 }
 
-function getPlayerChoice() {
-    var playerChoice = prompt("Please enter your choice: Rock, Paper, or Scissors").toLowerCase();
-    while (playerChoice !== "rock" && playerChoice !== "paper" && playerChoice !== "scissors") {
-      alert("Invalid choice, please enter Rock, Paper, or Scissors");
-      playerChoice = prompt("Please enter your choice: Rock, Paper, or Scissors").toLowerCase();
-    }
-    return playerChoice;
-}
-
 function playRound(playerSelection, computerSelection) {
     var result;
     
@@ -28,30 +19,54 @@ function playRound(playerSelection, computerSelection) {
     return result;
 }
 
-function game() {
-    var playerScore = 0;
-    var computerScore = 0;
-    
-    for (var i = 0; i < 5; i++) { 
-      var playerChoice = getPlayerChoice();
-      var computerChoice = getComputerChoice();
-      var roundResult = playRound(playerChoice, computerChoice);
-      console.log(roundResult);
-      
-      if (roundResult.includes("Win")) {
+const buttons = document.querySelectorAll('button');
+const resultsDiv = document.getElementById('results');
+const scoreDiv = document.getElementById('score');
+
+let playerScore = 0;
+let computerScore = 0;
+
+// Add click event listeners to the buttons
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        const playerChoice = button.id;
+        const computerChoice = getComputerChoice();
+        const roundResult = playRound(playerChoice, computerChoice);
+        
+        // Display the round result and update the scores
+        resultsDiv.textContent = roundResult;
+        updateScores(roundResult);
+        
+        // Display the current score
+        scoreDiv.textContent = `Player: ${playerScore}, Computer: ${computerScore}`;
+        
+        // Check for a winner
+        if (playerScore === 5) {
+            announceWinner("Player");
+        } else if (computerScore === 5) {
+            announceWinner("Computer");
+        }
+    });
+});
+
+function updateScores(result) {
+    if (result.includes("Win")) {
         playerScore++;
-      } else if (roundResult.includes("Lose")) {
+    } else if (result.includes("Lose")) {
         computerScore++;
-      }
-    }
-    
-    if (playerScore > computerScore) {
-      console.log("You won the game! Your final score is " + playerScore + " to " + computerScore);
-    } else if (playerScore < computerScore) {
-      console.log("You lost the game! Your final score is " + playerScore + " to " + computerScore);
-    } else {
-      console.log("It's a tie! Your final score is " + playerScore + " to " + computerScore);
     }
 }
 
-console.log(game());
+function announceWinner(winner) {
+    const winnerDiv = document.createElement('div');
+    winnerDiv.textContent = `${winner} wins the game!`;
+    winnerDiv.classList.add('winner');
+    resultsDiv.appendChild(winnerDiv);
+    
+    // Disable the buttons after the game is won
+    buttons.forEach(button => {
+        button.removeEventListener('click', function() {});
+        button.disabled = true;
+    });
+}
+// ... (rest of your code remains unchanged)
